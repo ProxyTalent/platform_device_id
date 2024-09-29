@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:advertising_id/advertising_id.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/services.dart';
@@ -18,8 +19,7 @@ class PlatformDeviceId {
       if (kIsWeb) {
         deviceId = await PlatformDeviceIdPlatform.instance.getDeviceId();
       } else if (Platform.isAndroid) {
-        AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
-        deviceId = androidInfo.androidId;
+        deviceId = await AdvertisingId.id();
       } else if (Platform.isIOS) {
         IosDeviceInfo iosInfo = await deviceInfoPlugin.iosInfo;
         deviceId = iosInfo.identifierForVendor;
